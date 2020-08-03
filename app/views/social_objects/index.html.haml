@@ -1,0 +1,98 @@
+
+=breadcrumb_tag do
+  %li.active
+    Социальные объекты
+
+%h1= t('app.social_objects.index')
+- if is_admin?
+  = link_to new_social_object_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.social_object')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= SocialObject.human_attribute_name(:soname)
+        %th= SocialObject.human_attribute_name(:type_of)
+        %th= SocialObject.human_attribute_name(:address)
+        %th= SocialObject.human_attribute_name(:director)
+        %th= SocialObject.human_attribute_name(:phones_of_director)
+        %th= SocialObject.human_attribute_name(:phones_of_operators)
+        %th= SocialObject.human_attribute_name(:redundant_power_supply)
+        %th= SocialObject.human_attribute_name(:maximum_working_shift)
+        %th= SocialObject.human_attribute_name(:superior_organization)
+        %th= SocialObject.human_attribute_name(:basement)
+        %th= SocialObject.human_attribute_name(:attic)  
+        %th= SocialObject.human_attribute_name(:elevators)      
+        %th= SocialObject.human_attribute_name(:boiler_house_id)
+        %th= SocialObject.human_attribute_name(:transformer_substation_id)
+        %th= SocialObject.human_attribute_name(:water_intake_unit_id)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @social_objects.each do |social_object|
+        %tr
+          %td{:data => {:label => (SocialObject.human_attribute_name(:soname))}}
+            = social_object.soname
+          %td{:data => {:label => (SocialObject.human_attribute_name(:type_of))}}
+            = social_object.type_of
+          %td{:data => {:label => (SocialObject.human_attribute_name(:address))}}
+            = social_object.address
+          %td{:data => {:label => (SocialObject.human_attribute_name(:director))}}
+            = social_object.director
+          %td{:data => {:label => (SocialObject.human_attribute_name(:phones_of_director))}}
+            = social_object.phones_of_director
+          %td{:data => {:label => (SocialObject.human_attribute_name(:phones_of_operators))}}
+            = social_object.phones_of_operators
+          %td{:data => {:label => (SocialObject.human_attribute_name(:redundant_power_supply))}}
+            = yesno(social_object.redundant_power_supply)
+          %td{:data => {:label => (SocialObject.human_attribute_name(:maximum_working_shift))}}
+            = social_object.maximum_working_shift
+          %td{:data => {:label => (SocialObject.human_attribute_name(:superior_organization))}}
+            = social_object.superior_organization
+          %td{:data => {:label => (SocialObject.human_attribute_name(:basement))}}
+            = yesno(social_object.basement)
+          %td{:data => {:label => (SocialObject.human_attribute_name(:attic))}}
+            = yesno(social_object.attic)
+          %td{:data => {:label => (SocialObject.human_attribute_name(:elevators))}}
+            = yesno(social_object.elevators)
+          -if social_object.boiler_house_id != nil
+            %td{:data => {:label => (SocialObject.human_attribute_name(:boiler_house_id))}}
+              = social_object.boiler_house.bhname
+          -else 
+            %td{:data => nil}
+          -if social_object.transformer_substation_id != nil
+            %td{:data => {:label => (SocialObject.human_attribute_name(:transformer_substation_id))}}
+              = social_object.transformer_substation.tsnum
+          -else 
+            %td{:data => nil}
+          -if social_object.water_intake_unit_id != nil
+            %td{:data => {:label => (SocialObject.human_attribute_name(:water_intake_unit_id))}}
+              = social_object.water_intake_unit.wiunum
+          -else 
+            %td{:data => nil}
+          %td.right
+            = link_to social_object, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_social_object_path(social_object), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to social_object, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_social_objects_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", social_objects_path(format: "csv"), class: 'btn btn-info'

@@ -1,0 +1,77 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.managment_companies.search')
+  %li
+    =link_to 'Управляющие компании', managment_companies_path
+
+.page-header
+  %h1= t('headers.managment_companies.search')
+
+= form_tag search_managment_companies_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:mcname)
+        =text_field_tag 'search[mcname]', params['search']['mcname'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:director)
+        =text_field_tag 'search[director]', params['search']['director'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:phones_of_operators)
+        =text_field_tag 'search[phones_of_operators]', params['search']['phones_of_operators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:phones_of_director)
+        =text_field_tag 'search[phones_of_director]', params['search']['phones_of_director'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ManagmentCompany.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.managment_company'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.managment_company_search.found') + ": " + @managment_companies.size.to_s
+- if @managment_companies.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= ManagmentCompany.human_attribute_name(:mcname)
+          %th= ManagmentCompany.human_attribute_name(:director)
+          %th= ManagmentCompany.human_attribute_name(:address)
+          %th= ManagmentCompany.human_attribute_name(:phones_of_operators)
+          %th= ManagmentCompany.human_attribute_name(:phones_of_director)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @managment_companies.each do |managment_company|
+          %tr
+            %td{:data => {:label => (ManagmentCompany.human_attribute_name(:mcname))}}
+              = managment_company.mcname
+            %td{:data => {:label => (ManagmentCompany.human_attribute_name(:director))}}
+              = managment_company.director
+            %td{:data => {:label => (ManagmentCompany.human_attribute_name(:address))}}
+              = managment_company.address
+            %td{:data => {:label => (ManagmentCompany.human_attribute_name(:phones_of_operators))}}
+              = managment_company.phones_of_operators
+            %td{:data => {:label => (ManagmentCompany.human_attribute_name(:phones_of_director))}}
+              = managment_company.phones_of_director
+            %td= managment_company.latitude.to_s + ", " + managment_company.longitude.to_s
+            %td.right
+              = link_to managment_company, class: 'btn btn-default' do
+                = fa_icon :eye
+

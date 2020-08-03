@@ -1,0 +1,63 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.boiler_houses.search')
+  %li
+    =link_to 'Котельная', boiler_houses_path
+
+.page-header
+  %h1= t('headers.boiler_houses.search')
+
+= form_tag search_boiler_houses_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =BoilerHouse.human_attribute_name(:bhname)
+        =text_field_tag 'search[bhname]', params['search']['bhname'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =BoilerHouse.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =BoilerHouse.human_attribute_name(:phones_of_operators)
+        =text_field_tag 'search[phones_of_operators]', params['search']['phones_of_operators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =BoilerHouse.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =BoilerHouse.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.boiler_house'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.boiler_house_search.found') + ": " + @boiler_houses.size.to_s
+- if @boiler_houses.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= BoilerHouse.human_attribute_name(:bhname)
+          %th= BoilerHouse.human_attribute_name(:address)
+          %th= BoilerHouse.human_attribute_name(:phones_of_operators)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @boiler_houses.each do |boiler_house|
+          %tr
+            %td{:data => {:label => (BoilerHouse.human_attribute_name(:bhname))}}
+              = boiler_house.bhname
+            %td{:data => {:label => (BoilerHouse.human_attribute_name(:address))}}
+              = boiler_house.address
+            %td{:data => {:label => (BoilerHouse.human_attribute_name(:phones_of_operators))}}
+              = boiler_house.phones_of_operators
+            %td= boiler_house.latitude.to_s + ", " + boiler_house.longitude.to_s
+            %td.right
+              = link_to boiler_house, class: 'btn btn-default' do
+                = fa_icon :eye
+

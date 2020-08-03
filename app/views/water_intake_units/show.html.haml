@@ -1,0 +1,43 @@
+
+=breadcrumb_tag do
+  %li.active
+    = @water_intake_unit.wiunum
+  %li
+    = link_to 'Водозаборы', water_intake_units_path
+
+
+%h1= "Водозабор № " + @water_intake_unit.wiunum.to_s
+
+%dl
+  %dt= WaterIntakeUnit.human_attribute_name(:wiunum)
+  %dd= @water_intake_unit.wiunum
+  %dt= WaterIntakeUnit.human_attribute_name(:address)
+  %dd= @water_intake_unit.address
+  %dt= WaterIntakeUnit.human_attribute_name(:phones_of_operators)
+  %dd= @water_intake_unit.phones_of_operators
+  %dt Координаты
+  - if @water_intake_unit.latitude != nil
+    %dd= @water_intake_unit.latitude.to_s + ", " + @water_intake_unit.longitude.to_s
+  %dt Электрические подстанции:
+  -au= @water_intake_unit.transformer_substations
+  -au.each do |r|
+    %dd= r.tsnum
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@water_intake_unit.latitude}, 
+          #{@water_intake_unit.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  street: MyText
+  number: MyString
+  number_of_floors: 1
+  year_of_construction: 1
+  type_of_roof: MyString
+  number_of_entrances: 1
+  number_of_apartments: 1
+  gasified: false
+  managment_company_id: 
+  boiler_house_id: 
+  transformer_substation_id: 
+  water_intake_unit_id: 
+  coordinates: MyString
+
+two:
+  street: MyText
+  number: MyString
+  number_of_floors: 1
+  year_of_construction: 1
+  type_of_roof: MyString
+  number_of_entrances: 1
+  number_of_apartments: 1
+  gasified: false
+  managment_company_id: 
+  boiler_house_id: 
+  transformer_substation_id: 
+  water_intake_unit_id: 
+  coordinates: MyString

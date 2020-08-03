@@ -1,0 +1,64 @@
+
+=breadcrumb_tag do
+  %li.active
+    = @social_object.soname
+  %li
+    = link_to 'Социальные объекты', social_objects_path
+
+%h1= "Социальный объект " + @social_object.soname
+
+%dl
+  %dt= SocialObject.human_attribute_name(:soname)
+  %dd= @social_object.soname
+  %dt= SocialObject.human_attribute_name(:type_of)
+  %dd= @social_object.type_of
+  %dt= SocialObject.human_attribute_name(:address)
+  %dd= @social_object.address
+  %dt= SocialObject.human_attribute_name(:director)
+  %dd= @social_object.director
+  %dt= SocialObject.human_attribute_name(:phones_of_director)
+  %dd= @social_object.phones_of_director
+  %dt= SocialObject.human_attribute_name(:phones_of_operators)
+  %dd= @social_object.phones_of_operators
+  %dt= SocialObject.human_attribute_name(:maximum_working_shift)
+  %dd= yesno(@social_object.maximum_working_shift)
+  %dt= SocialObject.human_attribute_name(:redundant_power_supply)
+  %dd= yesno(@social_object.redundant_power_supply)
+  %dt= SocialObject.human_attribute_name(:superior_organization)
+  %dd= yesno(@social_object.superior_organization)
+  %dt= SocialObject.human_attribute_name(:basement)
+  %dd= yesno(@social_object.basement)
+  %dt= SocialObject.human_attribute_name(:attic)
+  %dd= yesno(@social_object.attic)
+  %dt= SocialObject.human_attribute_name(:elevators)
+  %dd= yesno(@social_object.elevators)
+  %dt= SocialObject.human_attribute_name(:boiler_house_id)
+  -if @social_object.boiler_house_id !=nil
+    %dd= @social_object.boiler_house.bhname
+  %dt= SocialObject.human_attribute_name(:transformer_substation_id)
+  -if @social_object.transformer_substation_id != nil
+    %dd= @social_object.transformer_substation.tsnum
+  %dt= SocialObject.human_attribute_name(:water_intake_unit_id)
+  -if @social_object.water_intake_unit_id != nil
+    %dd= @social_object.water_intake_unit.wiunum
+  %dt Координаты
+  - if @social_object.latitude != nil
+    %dd= @social_object.latitude.to_s + ", " + @social_object.longitude.to_s
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@social_object.latitude}, #{@social_object.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

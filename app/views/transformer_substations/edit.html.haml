@@ -1,0 +1,12 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.transformer_substations.edit')
+  %li
+    = link_to(@transformer_substation.tsnum, @transformer_substation)
+  %li
+    = link_to 'Электрические подстанции', transformer_substations_path
+    
+.page-header
+  %h1= t('headers.transformer_substations.edit')
+
+= render 'form'

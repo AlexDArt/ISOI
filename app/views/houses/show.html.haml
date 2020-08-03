@@ -1,0 +1,68 @@
+
+=breadcrumb_tag do
+  %li.active
+    = @house.address
+  %li
+    = link_to 'Дома', houses_path
+
+%h1 Дом по адресу
+%h1=  @house.address
+
+%dl
+  %dt= House.human_attribute_name(:address)
+  %dd= @house.address
+  %dt= House.human_attribute_name(:type_of_building)
+  %dd= @house.type_of_building
+  %dt= House.human_attribute_name(:number_of_apartments)
+  %dd= @house.number_of_apartments
+  %dt= House.human_attribute_name(:number_of_floors)
+  %dd= @house.number_of_floors
+  %dt= House.human_attribute_name(:year_of_construction)
+  %dd= @house.year_of_construction
+  %dt= House.human_attribute_name(:type_of_roof)
+  %dd= @house.type_of_roof
+  %dt= House.human_attribute_name(:number_of_entrances)
+  %dd= @house.number_of_entrances
+  %dt= House.human_attribute_name(:number_of_residents)
+  %dd= @house.number_of_residents
+  %dt= House.human_attribute_name(:gasified)
+  %dd= @house.gasified
+  %dt= House.human_attribute_name(:basement)
+  %dd= yesno(@house.basement)
+  %dt= House.human_attribute_name(:attic)
+  %dd= yesno(@house.attic)
+  %dt= House.human_attribute_name(:underground_parking)
+  %dd= yesno(@house.underground_parking)
+  %dt= House.human_attribute_name(:elevators)
+  %dd= yesno(@house.elevators)
+  %dt= House.human_attribute_name(:garbage_chute)
+  %dd= yesno(@house.garbage_chute)
+  %dt= House.human_attribute_name(:managment_company_id)
+  %dd= @house.managment_company.mcname
+  %dt= House.human_attribute_name(:boiler_house_id)
+  %dd= @house.boiler_house.bhname
+  %dt= House.human_attribute_name(:transformer_substation_id)
+  %dd= @house.transformer_substation.tsnum
+  %dt= House.human_attribute_name(:water_intake_unit_id)
+  %dd= @house.water_intake_unit.wiunum
+  %dt Координаты
+  -if @house.latitude != nil
+    %dd= @house.latitude.to_s + ", " + @house.longitude.to_s
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@house.latitude}, #{@house.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

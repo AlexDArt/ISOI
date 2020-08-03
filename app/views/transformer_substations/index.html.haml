@@ -1,0 +1,55 @@
+=breadcrumb_tag do
+  %li.active
+    Электрические подстанции
+
+%h1= t('app.transformer_substations.index')
+- if is_admin?
+  = link_to new_transformer_substation_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.transformer_substation')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= TransformerSubstation.human_attribute_name(:tsnum)
+        %th= TransformerSubstation.human_attribute_name(:address)
+        %th= TransformerSubstation.human_attribute_name(:phones_of_operators)
+        %th= TransformerSubstation.human_attribute_name(:power_supply_center)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @transformer_substations.each do |transformer_substation|
+        %tr
+          %td{:data => {:label => (TransformerSubstation.human_attribute_name(:tsnum))}}
+            = transformer_substation.tsnum
+          %td{:data => {:label => (TransformerSubstation.human_attribute_name(:address))}}
+            = transformer_substation.address
+          %td{:data => {:label => (TransformerSubstation.human_attribute_name(:phones_of_operators))}}
+            = transformer_substation.phones_of_operators
+          %td{:data => {:label => (TransformerSubstation.human_attribute_name(:power_supply_center))}}
+            = transformer_substation.power_supply_center
+          %td.right
+            = link_to transformer_substation, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_transformer_substation_path(transformer_substation), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to transformer_substation, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_transformer_substations_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", transformer_substations_path(format: "csv"), class: 'btn btn-info'
+

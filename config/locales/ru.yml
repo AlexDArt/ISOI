@@ -1,0 +1,282 @@
+ru:
+  app:
+    name: ИСОИ
+    company:
+      short_name: ЕДДС
+      department: 112
+    users:
+      index: Список пользователей
+      new-button: Новый пользователь 
+      edit: Редактирование пользователя
+      new: Создание пользователя
+    roles:
+      index: Список возможных ролей пользователей
+      new-button: Новая роль
+      edit: Редактирование роли
+      new: Создание роли
+    boiler_houses:
+      index: Список котельных
+      new-button: Новая котельная 
+      edit: Редактирование котельной
+      new: Создание котельной
+    transformer_substations:
+      index: Список электрических подстанций
+      new-button: Новая электрическая подстанция
+      edit: Редактирование электрической подстанции
+      new: Создание электрической подстанции
+    water_intake_units:
+      index: Список водозаборов
+      new-button: Новый водозабор
+      edit: Редактирование водозабора
+      new: Создание водозабора
+    managment_companies:
+      index: Список управляющих компаний
+      new-button: Новая управляющая компания
+      edit: Редактирование управляющей компании
+      new: Создание управляющей компании
+    houses:
+      index: Список домов
+      new-button: Новый дом 
+      edit: Редактирование дома
+      new: Создание дома
+    social_objects:
+      index: Список социальных объектов
+      new-button: Новый социальный объект
+      edit: Редактирование социального объекта
+      new: Создание социального объекта
+    shopping_centers:
+      index: Список торговых центров
+      new-button: Новый торговый центр
+      edit: Редактирование торгового центра
+      new: Создание торгового центра
+  helpers:
+    submit:
+      create: Сохранить
+      submit: Сохранить
+      update: Сохранить
+    sure: Действительно удалить? 
+  buttons:
+    edit: Редактировать
+    destroy: Удалить
+    show: Показать
+    save: Сохранить
+    back: Назад
+    confirm:
+      user: Действительно удалить пользователя?
+      role: Действительно удалить роль?
+      boiler_house: Действительно удалить котельную?
+      transformer_substation: Действительно удалить электрическую подстанцию?
+      water_intake_unit: Действительно удалить водозабор?
+      managment_company: Действительно удалить управляющую компанию?
+      house: Действительно удалить дом?
+      social_object: Действительно удалить социальный объект? 
+      shopping_center: Действительно удалить торговый центр? 
+    new: 
+      user: Новый пользователь
+      role: Новая роль
+      boiler_house: Новая котельная
+      transformer_substation: Новая электрическая подстанция
+      water_intake_unit: Новый водозабор
+      managment_company: Новая управляющая компания
+      house: Новый дом
+      social_object: Новый социальный объект
+      shopping_center: Новый торговый центр 
+    search:
+      boiler_house: Найти котельную
+      transformer_substation: Найти электрическую подстанцию
+      water_intake_unit: Найти водозабор
+      managment_company: Найти управляющую компанию
+      house: Найти дом
+      social_object: Найти социальный объект 
+      shopping_center: Найти торговый центр
+  headers:
+    users:
+      edit: Редактирование пользователя
+      new: Новый пользователь
+      index: Список пользователей
+    roles:
+      index: Список возможных ролей пользователей
+      edit: Редактирование роли
+      new: Новая роль
+    boiler_houses:
+      index: Список котельных
+      new: Новая котельная
+      edit: Редактирование котельной
+      search: Поиск котельной
+    transformer_substations:
+      index: Список электрических подстанций
+      new: Новая электрическая подстанция
+      edit: Редактирование электрической подстанции
+      search: Поиск электрической подстанции
+    water_intake_units:
+      index: Список водозаборов
+      new: Новый водозабор
+      edit: Редактирование водозабора
+      search: Поиск водозабора
+    managment_companies:
+      index: Список управляющих компаний
+      new: Новая управляющая компания
+      edit: Редактирование управляющей компании
+      search: Поиск управляющей компании
+    houses:
+      index: Список домов
+      new: Новый дом
+      edit: Редактирование дома
+      search: Поиск дома
+    social_objects:
+      index: Список социальных объектов
+      new: Новый социальный объект
+      edit: Редактирование социального объекта
+      search: Поиск социального объекта
+    shopping_centers:
+      index: Список торговых центров
+      new: Новый торговый центр
+      edit: Редактирование торгового центра
+      search: Поиск торгового центра
+  forms:
+    water_intake_unit_search:
+      found: Найдено водозаборов
+    managment_company_search:
+      found: Найдено управляющих компаний
+    house_search:
+      found: Найдено домов
+    social_object_search: 
+      found: Найдено социальных объектов
+    transformer_substation_search:
+      found: Найдено электрических подстанций
+    boiler_house_search:
+      found: Найдено котельных
+    shopping_center_search:
+      found: Найдено торговых центров
+  views:
+    pagination:
+      first: ⇤
+      last: ⇥
+      previous: ←
+      next: →
+      truncate: …
+  activerecord:
+    models:
+      user: Пользователь
+      boiler_house: Котельная
+      transformer_substation: Электрическая подстанция
+      water_intake_unit: Водозабор
+      managment_company: Управляющая компания
+      house: Дом
+      social_object: Социальный объект 
+    attributes:
+      user:
+        email: Логин
+        birthday: Дата рождения
+        password: Пароль
+        password_confirmation: Подтверждение пароля
+        reset_password_email_sent_at: Дата отправления письма для смены пароля
+        activation_state: Статус активации
+        activation_token_expires_at: Дата прекращения действия токена активации
+        last_login_at: Время последнего входа в систему
+        role_users: Роли
+      role: 
+        name: Обозначение
+        info: Краткое название
+        full_info: Описание
+      # nested_start
+      role_user: &role_users
+      # nested_finish
+        role: Роль
+        role_id: Роль
+        data: Параметры
+      # nested_start
+      user/role_users:
+        <<: *role_users
+      # nested_finish   
+      boiler_house: 
+        bhname: Название
+        address: Адрес
+        phones_of_operators: Номера дтспетчеров
+        water_intake_unit_id: Водозабор
+        latitude: Широта
+        longitude: Долгота
+      transformer_substation:
+        tsnum: Номер 
+        address: Адрес
+        phones_of_operators: Номера диспетчеров
+        power_supply_center: Питающий центр
+        latitude: Широта
+        longitude: Долгота
+      water_intake_unit: 
+        wiunum: Номер
+        address: Адрес
+        phones_of_operators: Номера диспетчеров
+        latitude: Широта
+        longitude: Долгота
+      managment_company:
+        mcname: Название
+        director: Директор
+        phones_of_director: Номер директора
+        address: Адрес
+        phones_of_operators: Номера диспетчеров
+        latitude: Широта
+        longitude: Долгота
+      house: 
+        address: Адрес
+        type_of_building: Тип здания
+        number_of_floors: Количество этажей
+        year_of_construction: Год постройки
+        type_of_roof: Тип кровли
+        number_of_entrances: Количество подъездов
+        number_of_apartments: Количество квартир
+        gasified: Газификация
+        number_of_residents: Количество жильцов
+        basement: Подвал
+        attic: Чердак
+        underground_parking: Подземная парковка
+        elevators: Лифты
+        garbage_chute: Мусоропровод
+        managment_company_id: Управляющая компания
+        boiler_house_id: Котельная
+        transformer_substation_id: Электрическая подстанция
+        water_intake_unit_id: Водозабор
+        latitude: Широта
+        longitude: Долгота
+      social_object:
+        soname: Название
+        type_of: Тип объекта
+        director: Директор
+        redundant_power_supply: Резервный источник питания
+        superior_organization: Вышестоящая организация
+        maximum_working_shift: НРС
+        basement: Подвал
+        attic: Чердак
+        elevators: Лифты
+        phones_of_director: Номер директора
+        address: Адрес
+        phones_of_operators: Номера диспетчеров
+        boiler_house_id: Котельная
+        transformer_substation_id: Электрическая подстанция
+        water_intake_unit_id: Водозабор
+        latitude: Широта
+        longitude: Долгота
+      shopping_center: 
+        scname: Название
+        address: Адрес
+        owner: Собственник(управляющий)
+        type_of_roof: Тип кровли
+        number_of_entrances: Количество входов
+        number_of_floors: Количество этажей
+        maximum_working_shift: НРС
+        basement: Подвал
+        attic: Чердак
+        underground_parking: Подземная парковка
+        elevator: Лифты(травалаторы, эскалаторы)
+        boiler_house_id: Котельная
+        transformer_substation_id: Электрическая подстанция
+        water_intake_unit_id: Водозабор
+        latitude: Широта
+        longitude: Долгота
+    errors:
+      models:
+        person:
+          attributes:
+            snils:
+              check_sum: имеет неправильную контрольную сумму
+        

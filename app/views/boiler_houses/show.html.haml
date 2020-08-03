@@ -1,0 +1,43 @@
+=breadcrumb_tag do
+  %li.active
+    = @boiler_house.bhname
+  %li
+    = link_to 'Котельные', boiler_houses_path
+
+%h1= "Котельная " + @boiler_house.bhname
+
+%dl
+  %dt= BoilerHouse.human_attribute_name(:bhname)
+  %dd= @boiler_house.bhname
+  %dt= BoilerHouse.human_attribute_name(:address)
+  %dd= @boiler_house.address
+  %dt= WaterIntakeUnit.human_attribute_name(:phones_of_operators)
+  %dd= @boiler_house.phones_of_operators
+  %dt Координаты
+  -if @boiler_house.latitude != nil
+    %dd= @boiler_house.latitude.to_s + ", " + @boiler_house.longitude.to_s
+  %dt= BoilerHouse.human_attribute_name(:water_intake_unit_id)
+  -if @boiler_house.water_intake_unit_id != nil
+    %dd= @boiler_house.water_intake_unit.wiunum
+  %dt Электрические подстанции
+  -au= @boiler_house.transformer_substations
+  -au.each do |r|
+    %dd= r.tsnum
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@boiler_house.latitude}, #{@boiler_house.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

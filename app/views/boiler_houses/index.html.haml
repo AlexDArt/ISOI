@@ -1,0 +1,53 @@
+
+=breadcrumb_tag do
+  %li.active
+    Котельные
+
+%h1= t('app.boiler_houses.index')
+- if is_admin?
+  = link_to new_boiler_house_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.boiler_house')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= BoilerHouse.human_attribute_name(:bhname)
+        %th= BoilerHouse.human_attribute_name(:address)
+        %th= BoilerHouse.human_attribute_name(:phones_of_operators)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @boiler_houses.each do |boiler_house|
+        %tr
+          %td{:data => {:label => (BoilerHouse.human_attribute_name(:bhname))}}
+            = boiler_house.bhname
+          %td{:data => {:label => (BoilerHouse.human_attribute_name(:address))}}
+            = boiler_house.address
+          %td{:data => {:label => (BoilerHouse.human_attribute_name(:phones_of_operators))}}
+            = boiler_house.phones_of_operators
+          %td.right
+            = link_to boiler_house, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_boiler_house_path(boiler_house), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to boiler_house, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_boiler_houses_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", boiler_houses_path(format: "csv"), class: 'btn btn-info'
+

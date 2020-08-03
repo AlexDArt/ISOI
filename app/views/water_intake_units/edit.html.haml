@@ -1,0 +1,12 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.water_intake_units.edit')
+  %li
+    = link_to(@water_intake_unit.wiunum, @water_intake_unit)
+  %li
+    = link_to 'Водозаборы', water_intake_units_path
+    
+.page-header
+  %h1= t('headers.water_intake_units.edit')
+
+= render 'form'

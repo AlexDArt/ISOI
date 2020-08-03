@@ -1,0 +1,2 @@
+module SocialObjectsHelper
+end

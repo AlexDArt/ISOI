@@ -1,0 +1,126 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.social_objects.search')
+  %li
+    =link_to 'Социальные объекты', social_objects_path
+
+.page-header
+  %h1= t('headers.social_objects.search')
+
+= form_tag search_social_objects_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:soname)
+        =text_field_tag 'search[soname]', params['search']['soname'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:type_of)
+        =text_field_tag 'search[type_of]', params['search']['type_of'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:director)
+        =text_field_tag 'search[director]', params['search']['director'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:superior_organization)
+        =text_field_tag 'search[superior_organization]', params['search']['superior_organization'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:maximum_working_shift)
+        =number_field_tag 'search[maximum_working_shift]', params['search']['maximum_working_shift'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:redundant_power_supply)
+        =text_field_tag 'search[redundant_power_supply]', params['search']['redundant_power_supply'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:basement)
+        =text_field_tag 'search[basement]', params['search']['basement'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:attic)
+        =text_field_tag 'search[attic]', params['search']['attic'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:elevators)
+        =text_field_tag 'search[elevators]', params['search']['elevators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:phones_of_operators)
+        =text_field_tag 'search[phones_of_operators]', params['search']['phones_of_operators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:phones_of_director)
+        =text_field_tag 'search[phones_of_director]', params['search']['phones_of_director'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =SocialObject.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.social_object'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.social_object_search.found') + ": " + @social_objects.size.to_s
+- if @social_objects.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= SocialObject.human_attribute_name(:soname)
+          %th= SocialObject.human_attribute_name(:type_of)
+          %th= SocialObject.human_attribute_name(:director)
+          %th= SocialObject.human_attribute_name(:address)
+          %th= SocialObject.human_attribute_name(:redundant_power_supply)
+          %th= SocialObject.human_attribute_name(:maximum_working_shift)
+          %th= SocialObject.human_attribute_name(:superior_organization)
+          %th= SocialObject.human_attribute_name(:basement)
+          %th= SocialObject.human_attribute_name(:attic)
+          %th= SocialObject.human_attribute_name(:elevators)
+          %th= SocialObject.human_attribute_name(:phones_of_operators)
+          %th= SocialObject.human_attribute_name(:phones_of_director)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @social_objects.each do |social_object|
+          %tr
+            %td{:data => {:label => (SocialObject.human_attribute_name(:soname))}}
+              = social_object.soname
+            %td{:data => {:label => (SocialObject.human_attribute_name(:type_of))}}
+              = social_object.type_of
+            %td{:data => {:label => (SocialObject.human_attribute_name(:director))}}
+              = social_object.director
+            %td{:data => {:label => (SocialObject.human_attribute_name(:address))}}
+              = social_object.address
+            %td{:data => {:label => (SocialObject.human_attribute_name(:redundant_power_supply))}}
+              = yesno(social_object.redundant_power_supply)
+            %td{:data => {:label => (SocialObject.human_attribute_name(:maximum_working_shift))}}
+              = social_object.maximum_working_shift
+            %td{:data => {:label => (SocialObject.human_attribute_name(:superior_organization))}}
+              = social_object.superior_organization
+            %td{:data => {:label => (SocialObject.human_attribute_name(:basement))}}
+              = yesno(social_object.basement)
+            %td{:data => {:label => (SocialObject.human_attribute_name(:attic))}}
+              = yesno(social_object.attic)
+            %td{:data => {:label => (SocialObject.human_attribute_name(:elevators))}}
+              = yesno(social_object.elevators)
+            %td{:data => {:label => (SocialObject.human_attribute_name(:phones_of_operators))}}
+              = social_object.phones_of_operators
+            %td{:data => {:label => (SocialObject.human_attribute_name(:phones_of_director))}}
+              = social_object.phones_of_director
+            %td= social_object.latitude.to_s + ", " + social_object.longitude.to_s
+            %td.right
+              = link_to social_object, class: 'btn btn-default' do
+                = fa_icon :eye
+

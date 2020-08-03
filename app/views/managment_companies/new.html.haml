@@ -1,0 +1,11 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.managment_companies.new')
+  %li
+    = link_to 'Управляющие компании', managment_companies_path
+
+
+.page-header
+  %h1= t('headers.managment_companies.new')
+
+= render 'form'

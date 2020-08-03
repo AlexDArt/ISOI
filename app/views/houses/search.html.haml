@@ -1,0 +1,141 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.houses.search')
+  %li
+    =link_to 'Дома', houses_path
+
+.page-header
+  %h1= t('headers.houses.search')
+
+= form_tag search_houses_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:number_of_floors)
+        =number_field_tag 'search[number_of_floors]', params['search']['number_of_floors'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:type_of_building)
+        =text_field_tag 'search[type_of_building]', params['search']['type_of_building'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:year_of_construction)
+        =number_field_tag 'search[year_of_construction]', params['search']['year_of_construction'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:type_of_roof)
+        =text_field_tag 'search[type_of_roof]', params['search']['type_of_roof'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:number_of_entrances)
+        =number_field_tag 'search[number_of_entrances]', params['search']['number_of_entrances'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:number_of_apartments)
+        =number_field_tag 'search[number_of_apartments]', params['search']['number_of_apartments'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:number_of_residents)
+        =number_field_tag 'search[number_of_residents]', params['search']['number_of_residents'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:gasified)
+        =text_field_tag 'search[gasified]', params['search']['gasified'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:basement)
+        =text_field_tag 'search[basement]', params['search']['basement'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:attic)
+        =text_field_tag 'search[attic]', params['search']['attic'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:underground_parking)
+        =text_field_tag 'search[underground_parking]', params['search']['underground_parking'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:elevators)
+        =text_field_tag 'search[elevators]', params['search']['elevators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:garbage_chute)
+        =text_field_tag 'search[garbage_chute]', params['search']['garbage_chute'],class: 'form-control'
+      
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =House.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.house'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.house_search.found') + ": " + @houses.size.to_s
+- if @houses.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= House.human_attribute_name(:address)
+          %th= House.human_attribute_name(:type_of_building)
+          %th= House.human_attribute_name(:number_of_floors)
+          %th= House.human_attribute_name(:year_of_construction)
+          %th= House.human_attribute_name(:type_of_roof)
+          %th= House.human_attribute_name(:number_of_entrances)
+          %th= House.human_attribute_name(:number_of_apartments)
+          %th= House.human_attribute_name(:number_of_residents)
+          %th= House.human_attribute_name(:gasified)
+          %th= House.human_attribute_name(:basement)
+          %th= House.human_attribute_name(:attic)
+          %th= House.human_attribute_name(:underground_parking)
+          %th= House.human_attribute_name(:elevators)
+          %th= House.human_attribute_name(:garbage_chute)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @houses.each do |house|
+          %tr
+            %td{:data => {:label => (House.human_attribute_name(:address))}}
+              = house.address
+            %td{:data => {:label => (House.human_attribute_name(:type_of_building))}}
+              = house.type_of_building
+            %td{:data => {:label => (House.human_attribute_name(:number_of_floors))}}
+              = house.number_of_floors
+            %td{:data => {:label => (House.human_attribute_name(:year_of_construction))}}
+              = house.year_of_construction
+            %td{:data => {:label => (House.human_attribute_name(:type_of_roof))}}
+              = house.type_of_roof
+            %td{:data => {:label => (House.human_attribute_name(:number_of_entrances))}}
+              = house.number_of_entrances
+            %td{:data => {:label => (House.human_attribute_name(:number_of_apartments))}}
+              = house.number_of_apartments
+            %td{:data => {:label => (House.human_attribute_name(:number_of_residents))}}
+              = house.number_of_residents
+            %td{:data => {:label => (House.human_attribute_name(:gasified))}}
+              = house.gasified
+            %td{:data => {:label => (House.human_attribute_name(:basement))}}
+              = house.basement
+            %td{:data => {:label => (House.human_attribute_name(:attic))}}
+              = house.attic
+            %td{:data => {:label => (House.human_attribute_name(:underground_parking))}}
+              = house.underground_parking
+            %td{:data => {:label => (House.human_attribute_name(:elevators))}}
+              = house.elevators
+            %td{:data => {:label => (House.human_attribute_name(:garbage_chute))}}
+              = house.garbage_chute
+            %td= house.latitude.to_s + ", " + house.longitude.to_s
+            %td.right
+              = link_to house, class: 'btn btn-default' do
+                = fa_icon :eye
+

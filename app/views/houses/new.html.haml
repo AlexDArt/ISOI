@@ -1,0 +1,11 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.houses.new')
+  %li
+    = link_to 'Дома', houses_path
+
+
+.page-header
+  %h1= t('headers.houses.new')
+
+= render 'form'

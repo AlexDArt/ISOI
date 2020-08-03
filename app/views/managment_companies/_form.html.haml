@@ -1,0 +1,48 @@
+= form_for @managment_company do |f|
+  = error_messages_for @managment_company
+  .row
+    .col-md-6
+      .form-group
+        = f.label :mcname
+        = f.text_field :mcname, class: 'form-control'
+        = f.error_messages_for(:mcname)
+    .col-md-6
+      .form-group
+        = f.label :address
+        = f.text_field :address, class: 'form-control'
+        = f.error_messages_for(:address)
+  .row
+    .col-md-6
+      .form-group
+        = f.label :director
+        = f.text_field :director, class: 'form-control'
+        = f.error_messages_for(:director)
+    .col-md-6
+      .form-group
+        = f.label :phones_of_director
+        = f.text_field :phones_of_director, class: 'form-control'
+        = f.error_messages_for(:phones_of_director)
+  .row
+    .col-md-6
+      .form-group
+        = f.label :phones_of_operators
+        = f.text_field :phones_of_operators, class: 'form-control'
+        = f.error_messages_for(:phones_of_operators)
+  %h1 Координаты
+  .row
+    .col-md-6
+      .form-group
+        = f.label :latitude
+        = f.text_field :latitude, class: 'form-control'
+        = f.error_messages_for(:latitude)
+    .col-md-6
+      .form-group
+        = f.label :longitude
+        = f.text_field :longitude, class: 'form-control'
+        = f.error_messages_for(:longitude)
+  %br 
+  - if is_admin?
+    .form-actions.bottom20
+      = f.submit nil, class: 'btn btn-primary'
+  - else
+    %h3 Вносить изменения(регистрировать новые) может только администратор

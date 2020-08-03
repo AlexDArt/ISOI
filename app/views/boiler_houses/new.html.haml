@@ -1,0 +1,11 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.boiler_houses.new')
+  %li
+    = link_to 'Котельные', boiler_houses_path
+
+
+.page-header
+  %h1= t('headers.boiler_houses.new')
+
+= render 'form'

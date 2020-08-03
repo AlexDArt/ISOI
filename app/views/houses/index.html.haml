@@ -1,0 +1,109 @@
+=breadcrumb_tag do
+  %li.active
+    Дома
+
+%h1= t('app.houses.index')
+- if is_admin?
+  = link_to new_house_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.house')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= House.human_attribute_name(:address)
+        %th= House.human_attribute_name(:type_of_building)
+        %th= House.human_attribute_name(:number_of_apartments)
+        %th= House.human_attribute_name(:number_of_floors)
+        %th= House.human_attribute_name(:year_of_construction)
+        %th= House.human_attribute_name(:type_of_roof)
+        %th= House.human_attribute_name(:number_of_entrances)
+        %th= House.human_attribute_name(:number_of_residents)
+        %th= House.human_attribute_name(:gasified)
+        %th= House.human_attribute_name(:basement)
+        %th= House.human_attribute_name(:attic)
+        %th= House.human_attribute_name(:underground_parking)
+        %th= House.human_attribute_name(:elevators)
+        %th= House.human_attribute_name(:garbage_chute)
+        %th= House.human_attribute_name(:managment_company_id)
+        %th= House.human_attribute_name(:boiler_house_id)
+        %th= House.human_attribute_name(:transformer_substation_id)
+        %th= House.human_attribute_name(:water_intake_unit_id)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @houses.each do |house|
+        %tr
+          %td{:data => {:label => (House.human_attribute_name(:address))}}
+            = house.address
+          %td{:data => {:label => (House.human_attribute_name(:type_of_building))}}
+            = house.type_of_building
+          %td{:data => {:label => (House.human_attribute_name(:number_of_apartments))}}
+            = house.number_of_apartments
+          %td{:data => {:label => (House.human_attribute_name(:number_of_floors))}}
+            = house.number_of_floors
+          %td{:data => {:label => (House.human_attribute_name(:year_of_construction))}}
+            = house.year_of_construction
+          %td{:data => {:label => (House.human_attribute_name(:type_of_roof))}}
+            = house.type_of_roof
+          %td{:data => {:label => (House.human_attribute_name(:number_of_entrances))}}
+            = house.number_of_entrances
+          %td{:data => {:label => (House.human_attribute_name(:number_of_residents))}}
+            = house.number_of_residents
+          %td{:data => {:label => (House.human_attribute_name(:gasified))}}
+            = house.gasified
+          %td{:data => {:label => (House.human_attribute_name(:basement))}}
+            = yesno(house.basement)
+          %td{:data => {:label => (House.human_attribute_name(:attic))}}
+            = yesno(house.attic)
+          %td{:data => {:label => (House.human_attribute_name(:underground_parking))}}
+            = yesno(house.underground_parking)
+          %td{:data => {:label => (House.human_attribute_name(:elevators))}}
+            = yesno(house.elevators)
+          %td{:data => {:label => (House.human_attribute_name(:garbage_chute))}}
+            = yesno(house.garbage_chute)
+          -if house.managment_company_id != nil
+            %td{:data => {:label => (House.human_attribute_name(:managment_company_id))}}
+              = house.managment_company.mcname
+          -else 
+            %td{:data => nil}
+          -if house.boiler_house_id != nil
+            %td{:data => {:label => (House.human_attribute_name(:boiler_house_id))}}
+              = house.boiler_house.bhname
+          -else 
+            %td{:data => nil}
+          -if house.transformer_substation_id != nil
+            %td{:data => {:label => (House.human_attribute_name(:transformer_substation_id))}}
+              = house.transformer_substation.tsnum
+          -else 
+            %td{:data => nil}
+          -if house.water_intake_unit_id != nil
+            %td{:data => {:label => (House.human_attribute_name(:water_intake_unit_id))}}
+              = house.water_intake_unit.wiunum
+          -else 
+            %td{:data => nil}
+          %td.right
+            = link_to house, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_house_path(house), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to house, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_houses_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", houses_path(format: "csv"), class: 'btn btn-info'

@@ -1,0 +1,12 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.shopping_centers.edit')
+  %li
+    = link_to(@shopping_center.scname, @shopping_centers)
+  %li
+    = link_to 'Торговые центры', shopping_centers_path
+    
+.page-header
+  %h1= t('headers.shopping_centers.edit')
+
+= render 'form'

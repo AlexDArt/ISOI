@@ -1,0 +1,58 @@
+=breadcrumb_tag do
+  %li.active
+    Управляющие компании
+
+%h1= t('app.managment_companies.index')
+- if is_admin?
+  = link_to new_managment_company_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.managment_company')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= ManagmentCompany.human_attribute_name(:mcname)
+        %th= ManagmentCompany.human_attribute_name(:address)
+        %th= ManagmentCompany.human_attribute_name(:director)
+        %th= ManagmentCompany.human_attribute_name(:phones_of_director)
+        %th= ManagmentCompany.human_attribute_name(:phones_of_operators)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @managment_companies.each do |managment_company|
+        %tr
+          %td{:data => {:label => (ManagmentCompany.human_attribute_name(:mcname))}}
+            = managment_company.mcname
+          %td{:data => {:label => (ManagmentCompany.human_attribute_name(:address))}}
+            = managment_company.address
+          %td{:data => {:label => (ManagmentCompany.human_attribute_name(:director))}}
+            = managment_company.director
+          %td{:data => {:label => (ManagmentCompany.human_attribute_name(:phones_of_director))}}
+            = managment_company.phones_of_director
+          %td{:data => {:label => (ManagmentCompany.human_attribute_name(:phones_of_operators))}}
+            = managment_company.phones_of_operators
+          %td.right
+            = link_to managment_company, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_managment_company_path(managment_company), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to managment_company, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_managment_companies_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", managment_companies_path(format: "csv"), class: 'btn btn-info'
+

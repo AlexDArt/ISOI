@@ -1,0 +1,60 @@
+=breadcrumb_tag do
+  %li.active
+    = @shopping_center.scname
+  %li
+    = link_to 'Торговые центры', shopping_centers_path
+
+%h1= "Торговый центр " + @shopping_center.scname
+
+%dl
+  %dt= ShoppingCenter.human_attribute_name(:scname)
+  %dd= @shopping_center.scname
+  %dt= ShoppingCenter.human_attribute_name(:address)
+  %dd= @shopping_center.address
+  %dt= ShoppingCenter.human_attribute_name(:owner)
+  %dd= @shopping_center.owner
+  %dt= ShoppingCenter.human_attribute_name(:number_of_floors)
+  %dd= @shopping_center.number_of_floors
+  %dt= ShoppingCenter.human_attribute_name(:type_of_roof)
+  %dd= @shopping_center.type_of_roof
+  %dt= ShoppingCenter.human_attribute_name(:number_of_entrances)
+  %dd= @shopping_center.number_of_entrances
+  %dt= ShoppingCenter.human_attribute_name(:maximum_working_shift)
+  %dd= @shopping_center.maximum_working_shift
+  %dt= ShoppingCenter.human_attribute_name(:basement)
+  %dd= yesno(@shopping_center.basement)
+  %dt= ShoppingCenter.human_attribute_name(:attic)
+  %dd= yesno(@shopping_center.attic)
+  %dt= ShoppingCenter.human_attribute_name(:underground_parking)
+  %dd= yesno(@shopping_center.underground_parking)
+  %dt= ShoppingCenter.human_attribute_name(:elevator)
+  %dd= yesno(@shopping_center.elevator)
+  %dt= ShoppingCenter.human_attribute_name(:boiler_house_id)
+  -if @shopping_center.boiler_house_id != nil
+    %dd= @shopping_center.boiler_house.bhname
+  %dt= ShoppingCenter.human_attribute_name(:transformer_substation_id)
+  -if @shopping_center.transformer_substation_id != nil
+    %dd= @shopping_center.transformer_substation.tsnum
+  %dt= ShoppingCenter.human_attribute_name(:water_intake_unit_id)
+  -if @shopping_center.water_intake_unit_id != nil
+    %dd= @shopping_center.water_intake_unit.wiunum
+  %dt Координаты
+  -if @shopping_center.latitude != nil
+    %dd= @shopping_center.latitude.to_s + ", " + @shopping_center.longitude.to_s
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@shopping_center.latitude}, #{@shopping_center.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }

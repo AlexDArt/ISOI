@@ -1,0 +1,94 @@
+= form_for @shopping_center do |f|
+  = error_messages_for @shopping_center
+  .row
+    .col-md-4
+      .form-group
+        = f.label :scname
+        = f.text_field :scname, class: 'form-control'
+        = f.error_messages_for(:scname)
+    .col-md-4
+      .form-group
+        = f.label :address
+        = f.text_field :address, class: 'form-control'
+        = f.error_messages_for(:address)
+    .col-md-4
+      .form-group
+        = f.label :owner
+        = f.text_field :owner, class: 'form-control'
+        = f.error_messages_for(:owner)
+  .row
+    .col-md-3
+      .form-group
+        = f.label :number_of_floors
+        = f.number_field :number_of_floors, class: 'form-control'
+        = f.error_messages_for(:number_of_floors)
+    .col-md-3
+      .form-group
+        = f.label :maximum_working_shift
+        = f.number_field :maximum_working_shift, class: 'form-control'
+        = f.error_messages_for(:maximum_working_shift)
+    .col-md-3
+      .form-group
+        = f.label :type_of_roof
+        = f.text_field :type_of_roof, class: 'form-control'
+        = f.error_messages_for(:type_of_roof)
+    .col-md-3
+      .form-group
+        = f.label :number_of_entrances
+        = f.number_field :number_of_entrances, class: 'form-control'
+        = f.error_messages_for(:number_of_entrances)
+  .row
+    .col-md-3
+      .form-group
+        = f.label :basement
+        = f.check_box :basement, class: 'form-check'
+        = f.error_messages_for(:basement)
+    .col-md-3
+      .form-group
+        = f.label :attic
+        = f.check_box :attic, class: 'form-check'
+        = f.error_messages_for(:attic)
+    .col-md-3
+      .form-group
+        = f.label :underground_parking
+        = f.check_box :underground_parking, class: 'form-check'
+        = f.error_messages_for(:underground_parking)
+    .col-md-3
+      .form-group
+        = f.label :elevator
+        = f.check_box :elevator, class: 'form-check'
+        = f.error_messages_for(:elevator)
+  .row
+    .col-md-6
+      .form-group
+        = f.label :boiler_house_id
+        = f.select :boiler_house_id, BoilerHouse.all.collect{|t| [t.bhname, t.id]}, {:prompt => ""}, class: 'form-control'
+        = f.error_messages_for(:boiler_house)
+    .col-md-6
+      .form-group
+        = f.label :transformer_substation_id
+        = f.select :transformer_substation_id, TransformerSubstation.all.collect{|t| [t.tsnum, t.id]}, {:prompt => ""}, class: 'form-control'
+        = f.error_messages_for(:transformer_substation)
+    .col-md-6
+      .form-group
+        = f.label :water_intake_unit_id
+        = f.select :water_intake_unit_id, WaterIntakeUnit.all.collect{|t| [t.wiunum, t.id]}, {:prompt => ""}, class: 'form-control'
+        = f.error_messages_for(:water_intake_unit)
+  %h1 Координаты
+  .row
+    .col-md-6
+      .form-group
+        = f.label :latitude
+        = f.text_field :latitude, class: 'form-control'
+        = f.error_messages_for(:latitude)
+    .col-md-6
+      .form-group
+        = f.label :longitude
+        = f.text_field :longitude, class: 'form-control'
+        = f.error_messages_for(:longitude)
+  %br 
+  - if is_admin?
+    .form-actions.bottom20
+      = f.submit nil, class: 'btn btn-primary'
+  - else
+    %h3 Вносить изменения(регистрировать новые) может только администратор

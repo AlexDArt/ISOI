@@ -1,0 +1,119 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.shopping_centers.search')
+  %li
+    =link_to 'Торговые центры', shopping_centers_path
+
+.page-header
+  %h1= t('headers.shopping_centers.search')
+
+= form_tag search_shopping_centers_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:scname)
+        =text_field_tag 'search[scname]', params['search']['scname'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:number_of_floors)
+        =text_field_tag 'search[number_of_floors]', params['search']['number_of_floors'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:owner)
+        =text_field_tag 'search[owner]', params['search']['owner'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:type_of_roof)
+        =text_field_tag 'search[type_of_roof]', params['search']['type_of_roof'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:number_of_entrances)
+        =text_field_tag 'search[number_of_entrances]', params['search']['number_of_entrances'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:maximum_working_shift)
+        =text_field_tag 'search[maximum_working_shift]', params['search']['maximum_working_shift'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:basement)
+        =text_field_tag 'search[basement]', params['search']['basement'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:attic)
+        =text_field_tag 'search[attic]', params['search']['attic'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:underground_parking)
+        =text_field_tag 'search[underground_parking]', params['search']['underground_parking'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:elevator)
+        =text_field_tag 'search[elevator]', params['search']['elevator'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =ShoppingCenter.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.shopping_center'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.shopping_center_search.found') + ": " + @shopping_centers.size.to_s
+- if @shopping_centers.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= ShoppingCenter.human_attribute_name(:scname)
+          %th= ShoppingCenter.human_attribute_name(:address)
+          %th= ShoppingCenter.human_attribute_name(:owner)
+          %th= ShoppingCenter.human_attribute_name(:number_of_floors)
+          %th= ShoppingCenter.human_attribute_name(:type_of_roof)
+          %th= ShoppingCenter.human_attribute_name(:number_of_entrances)
+          %th= ShoppingCenter.human_attribute_name(:maximum_working_shift)
+          %th= ShoppingCenter.human_attribute_name(:basement)
+          %th= ShoppingCenter.human_attribute_name(:attic)
+          %th= ShoppingCenter.human_attribute_name(:underground_parking)
+          %th= ShoppingCenter.human_attribute_name(:elevator)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @shopping_centers.each do |shopping_center|
+          %tr
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:scname))}}
+              = shopping_center.scname
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:address))}}
+              = shopping_center.address
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:owner))}}
+              = shopping_center.owner
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:number_of_floors))}}
+              = shopping_center.number_of_floors
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:type_of_roof))}}
+              = shopping_center.type_of_roof
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:number_of_entrances))}}
+              = shopping_center.number_of_entrances
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:maximum_working_shift))}}
+              = shopping_center.maximum_working_shift
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:basement))}}
+              = yesno(shopping_center.basement)
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:attic))}}
+              = yesno(shopping_center.attic)
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:underground_parking))}}
+              = yesno(shopping_center.underground_parking)
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:elevator))}}
+              = yesno(shopping_center.elevator)
+            %td= shopping_center.latitude.to_s + ", " + shopping_center.longitude.to_s
+            %td.right
+              = link_to shopping_center, class: 'btn btn-default' do
+                = fa_icon :eye
+

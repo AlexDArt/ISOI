@@ -1,0 +1,70 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.transformer_substations.search')
+  %li
+    =link_to 'Электрические подстанции', transformer_substations_path
+
+.page-header
+  %h1= t('headers.transformer_substations.search')
+
+= form_tag search_transformer_substations_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:tsnum)
+        =number_field_tag 'search[tsnum]', params['search']['tsnum'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:phones_of_operators)
+        =text_field_tag 'search[phones_of_operators]', params['search']['phones_of_operators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:power_supply_center)
+        =text_field_tag 'search[power_supply_unit]', params['search']['power_supply_center'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =TransformerSubstation.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.transformer_substation'), class: 'bnt btn-primary'
+.page-header
+  %h1= t('forms.transformer_substation_search.found') + ": " + @transformer_substations.size.to_s
+- if @transformer_substations.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= TransformerSubstation.human_attribute_name(:tsnum)
+          %th= TransformerSubstation.human_attribute_name(:address)
+          %th= TransformerSubstation.human_attribute_name(:phones_of_operators)
+          %th= TransformerSubstation.human_attribute_name(:power_supply_center)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @transformer_substations.each do |transformer_substation|
+          %tr
+            %td{:data => {:label => (TransformerSubstation.human_attribute_name(:tsnum))}}
+              = transformer_substation.tsnum
+            %td{:data => {:label => (TransformerSubstation.human_attribute_name(:address))}}
+              = transformer_substation.address
+            %td{:data => {:label => (TransformerSubstation.human_attribute_name(:phones_of_operators))}}
+              = transformer_substation.phones_of_operators
+            %td{:data => {:label => (TransformerSubstation.human_attribute_name(:power_supply_center))}}
+              = transformer_substation.power_supply_center
+            %td= transformer_substation.latitude.to_s + ", " + transformer_substation.longitude.to_s
+            %td.right
+              = link_to transformer_substation, class: 'btn btn-default' do
+                = fa_icon :eye
+

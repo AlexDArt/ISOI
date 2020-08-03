@@ -1,0 +1,46 @@
+=breadcrumb_tag do
+  %li.active
+    = @transformer_substation.tsnum
+  %li
+    = link_to 'Электрические подстанции', transformer_substations_path
+
+%h1= "Электрическая подстанция № " + @transformer_substation.tsnum.to_s
+
+%dl
+  %dt= TransformerSubstation.human_attribute_name(:tsnum)
+  %dd= @transformer_substation.tsnum
+  %dt= TransformerSubstation.human_attribute_name(:address)
+  %dd= @transformer_substation.address
+  %dt= TransformerSubstation.human_attribute_name(:phones_of_operators)
+  %dd= @transformer_substation.phones_of_operators
+  %dt= TransformerSubstation.human_attribute_name(:power_supply_center)
+  %dd= @transformer_substation.power_supply_center
+  %dt Координаты
+  - if @transformer_substation.latitude != nil
+    %dd= @transformer_substation.latitude.to_s + ", " + @transformer_substation.longitude.to_s
+  %dt Котельные:
+  -au= @transformer_substation.boiler_houses
+  -au.each do |r|
+    %dd= r.bhname
+  %dt Водозаборы:
+  -bu= @transformer_substation.water_intake_units
+  -bu.each do |r|
+    %dd= r.wiunum
+  
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@transformer_substation.latitude}, #{@transformer_substation.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

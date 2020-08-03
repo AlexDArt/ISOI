@@ -1,0 +1,39 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  settlement: MyText
+  street: MyText
+  number: MyString
+  owner: MyText
+  number_of_floors: 1
+  type_of_roof: MyString
+  number_of_entrances: 1
+  maximum_working_shift: 1
+  basement: 
+  attic: 
+  underground_parking: 
+  elevator: 
+  boiler_house_id_id: 
+  transformer_substation_id_id: 
+  water_intake_unit_id_id: 
+  latitude: 1.5
+  longitude: 1.5
+
+two:
+  settlement: MyText
+  street: MyText
+  number: MyString
+  owner: MyText
+  number_of_floors: 1
+  type_of_roof: MyString
+  number_of_entrances: 1
+  maximum_working_shift: 1
+  basement: 
+  attic: 
+  underground_parking: 
+  elevator: 
+  boiler_house_id_id: 
+  transformer_substation_id_id: 
+  water_intake_unit_id_id: 
+  latitude: 1.5
+  longitude: 1.5

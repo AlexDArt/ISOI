@@ -1,0 +1,63 @@
+=breadcrumb_tag do
+  %li.active
+    = t('headers.water_intake_units.search')
+  %li
+    =link_to 'Водозаборы', water_intake_units_path
+
+.page-header
+  %h1= t('headers.water_intake_units.search')
+
+= form_tag search_water_intake_units_path(), method: :get do
+  .well
+    .row
+      .col-md-4
+        .form-group
+        =WaterIntakeUnit.human_attribute_name(:wiunum)
+        =number_field_tag 'search[wiunum]', params['search']['wiunum'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =WaterIntakeUnit.human_attribute_name(:address)
+        =text_field_tag 'search[address]', params['search']['address'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =WaterIntakeUnit.human_attribute_name(:phones_of_operators)
+        =text_field_tag 'search[phones_of_operators]', params['search']['phones_of_operators'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =WaterIntakeUnit.human_attribute_name(:latitude)
+        =number_field_tag 'search[latitude]', params['search']['latitude'],class: 'form-control'
+      .col-md-4
+        .form-group
+        =WaterIntakeUnit.human_attribute_name(:longitude)
+        =number_field_tag 'search[longitude]', params['search']['longitude'],class: 'form-control'
+ 
+  .actions
+    =submit_tag t('buttons.search.water_intake_unit'), class: 'btn btn-primary'
+.page-header
+  %h1= t('forms.water_intake_unit_search.found') + ": " + @water_intake_units.size.to_s
+- if @water_intake_units.size > 0
+  .table-responsive
+    %table.table.table-hover.table-striped.center
+      %caption
+      %thead
+        %tr
+          %th= WaterIntakeUnit.human_attribute_name(:wiunum)
+          %th= WaterIntakeUnit.human_attribute_name(:address)
+          %th= WaterIntakeUnit.human_attribute_name(:phones_of_operators)
+          %th Координаты
+          %th.p50
+
+      %tbody
+        - @water_intake_units.each do |water_intake_unit|
+          %tr
+            %td{:data => {:label => (WaterIntakeUnit.human_attribute_name(:wiunum))}}
+              = water_intake_unit.wiunum
+            %td{:data => {:label => (WaterIntakeUnit.human_attribute_name(:address))}}
+              = water_intake_unit.address
+            %td{:data => {:label => (WaterIntakeUnit.human_attribute_name(:phones_of_operators))}}
+              = water_intake_unit.phones_of_operators
+            %td= water_intake_unit.latitude.to_s + ", " + water_intake_unit.longitude.to_s
+            %td.right
+              = link_to water_intake_unit, class: 'btn btn-default' do
+                = fa_icon :eye
+

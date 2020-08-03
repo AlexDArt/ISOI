@@ -1,0 +1,40 @@
+=breadcrumb_tag do
+  %li.active
+    = @managment_company.mcname
+  %li
+    = link_to 'Управляющие компании', managment_companies_path
+
+%h1= "Управляющая компания " + @managment_company.mcname
+
+%dl
+  %dt= ManagmentCompany.human_attribute_name(:mcname)
+  %dd= @managment_company.mcname
+  %dt= ManagmentCompany.human_attribute_name(:address)
+  %dd= @managment_company.address
+  %dt= ManagmentCompany.human_attribute_name(:director)
+  %dd= @managment_company.director
+  %dt= ManagmentCompany.human_attribute_name(:phones_of_director)
+  %dd= @managment_company.phones_of_director
+  %dt= ManagmentCompany.human_attribute_name(:phones_of_operators)
+  %dd= @managment_company.phones_of_operators
+  %dt Координаты
+  -if @managment_company.latitude != nil
+    %dd= @managment_company.latitude.to_s + ", " + @managment_company.longitude.to_s
+
+%div{style: "width: 800px;"}
+  #map{style: "width: 800px; height: 400px;"}
+- content_for :scripts do
+  :javascript
+    ymaps.ready(init);
+    var myMap;
+
+    function init(){     
+        myMap = new ymaps.Map("map", {
+            center: [55.437112, 37.768049],
+            zoom: 10
+        });
+        myPlacemark = new ymaps.Placemark([#{@managment_company.latitude}, #{@managment_company.longitude}]);
+
+        myMap.geoObjects.add(myPlacemark);
+    }
+    

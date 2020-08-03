@@ -1,0 +1,94 @@
+=breadcrumb_tag do
+  %li.active
+    Торговые центры
+
+%h1= t('app.shopping_centers.index')
+- if is_admin?
+  = link_to new_shopping_center_path, class: 'btn btn-primary' do
+    = fa_icon :plus
+    = t('buttons.new.shopping_center')
+.table-responsive
+  %table.table.table-hover.table-striped.center
+    %caption
+    %thead
+      %tr
+        %th= ShoppingCenter.human_attribute_name(:scname)
+        %th= ShoppingCenter.human_attribute_name(:address)
+        %th= ShoppingCenter.human_attribute_name(:owner)
+        %th= ShoppingCenter.human_attribute_name(:number_of_floors)
+        %th= ShoppingCenter.human_attribute_name(:type_of_roof)
+        %th= ShoppingCenter.human_attribute_name(:number_of_entrances)
+        %th= ShoppingCenter.human_attribute_name(:maximum_working_shift)
+        %th= ShoppingCenter.human_attribute_name(:basement)
+        %th= ShoppingCenter.human_attribute_name(:attic)
+        %th= ShoppingCenter.human_attribute_name(:underground_parking)
+        %th= ShoppingCenter.human_attribute_name(:elevator)
+        %th= ShoppingCenter.human_attribute_name(:boiler_house_id)
+        %th= ShoppingCenter.human_attribute_name(:transformer_substation_id)
+        %th= ShoppingCenter.human_attribute_name(:water_intake_unit_id)
+        %th.p50
+        %th.p50
+        %th.p50
+
+    %tbody
+      - @shopping_centers.each do |shopping_center|
+        %tr
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:scname))}}
+            = shopping_center.scname
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:address))}}
+            = shopping_center.address
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:owner))}}
+            = shopping_center.owner
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:number_of_floors))}}
+            = shopping_center.number_of_floors
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:type_of_roof))}}
+            = shopping_center.type_of_roof
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:number_of_entrances))}}
+            = shopping_center.number_of_entrances
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:maximum_working_shift))}}
+            = shopping_center.maximum_working_shift
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:basement))}}
+            = yesno(shopping_center.basement)
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:attic))}}
+            = yesno(shopping_center.attic)
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:underground_parking))}}
+            = yesno(shopping_center.underground_parking)
+          %td{:data => {:label => (ShoppingCenter.human_attribute_name(:elevator))}}
+            = yesno(shopping_center.elevator)
+          -if shopping_center.boiler_house_id != nil
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:boiler_house_id))}}
+              = shopping_center.boiler_house.bhname
+          -else 
+            %td{:data => nil}
+          -if shopping_center.transformer_substation_id != nil
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:transformer_substation_id))}}
+              = shopping_center.transformer_substation.tsnum
+          -else 
+            %td{:data => nil}
+          -if shopping_center.water_intake_unit_id != nil
+            %td{:data => {:label => (ShoppingCenter.human_attribute_name(:water_intake_unit_id))}}
+              = shopping_center.water_intake_unit.wiunum
+          -else 
+            %td{:data => nil}
+          %td.right
+            = link_to shopping_center, class: 'btn btn-default' do
+              = fa_icon :eye
+          - if is_admin?
+            
+            %td.right
+              = link_to edit_shopping_center_path(shopping_center), class: 'btn btn-info' do
+                = fa_icon :edit
+            %td.right
+              = link_to shopping_center, :method => :delete, :data => { :confirm => t('helpers.sure') }, class: 'btn btn-danger' do
+                = fa_icon :times
+
+
+- if is_admin?
+  %h2 Загрузить данные в базу
+  = form_tag import_houses_path, multipart: true do
+    = file_field_tag :file
+    %br
+    = submit_tag "Загрузить", class: 'btn btn-info'
+
+%h2 Сохранить данные из базы
+=link_to "Сохранить", houses_path(format: "csv"), class: 'btn btn-info'

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  address: MyText
+  director: MyString
+  phones_of_operators: MyText
+  phones_of_director: MyText
+  coordinates: MyString
+
+two:
+  address: MyText
+  director: MyString
+  phones_of_operators: MyText
+  phones_of_director: MyText
+  coordinates: MyString
